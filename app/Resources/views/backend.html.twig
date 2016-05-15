@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to backend!</title>
+  {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<ul>
+  <li><a href="/admin">Dashboard</a></li>
+  <li><a href="/admin/users">Users</a></li>
+  <li><a href="/admin/roles">Roles</a></li>
+</ul>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>
