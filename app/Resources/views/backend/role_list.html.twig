@@ -1,4 +1,29 @@
 {% extends 'backend.html.twig' %}
 {% block body %}
   <h1>Roles list</h1>
+  <a href="/admin/roles/add">Add new role</a>
+
+  {% if (roles) %}
+    <table>
+      <tr>
+        <td>ID</td>
+        <td>Role name</td>
+        <td>Action</td>
+      </tr>
+
+      {% for role in roles %}
+        <tr>
+          <td>{{ role.id }}</td>
+          <td>{{ role.name }}</td>
+          <td>
+            <a href="#">Edit</a>
+            &nbsp;|&nbsp;
+            <a href="#">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% endif %}
+
 {% endblock %}

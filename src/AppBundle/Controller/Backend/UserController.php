@@ -3,16 +3,11 @@
 namespace AppBundle\Controller\Backend;
 
 use AppBundle\Entity\Users;
-use AppBundle\Repository\UsersRepository;
-use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
 use AppBundle\Forms\UserForm;
-use AppBundle\Controller\BaseController;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class UserController extends Controller
 {
@@ -48,7 +43,7 @@ class UserController extends Controller
       $em->persist($user);
       $em->flush();
 
-      $users = $this->getDoctrine()->getRepository('AppBundle:Users');
+      $users = $em->getRepository('AppBundle:Users');
 
       return $this->render('backend/user_list.html.twig', array(
         'users' => $users->findAll())
