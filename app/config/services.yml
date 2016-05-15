@@ -4,9 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.base.controller:
-        class: AppBundle\Controller\BaseController
-        arguments: ['@doctrine.orm.entity_manager', '@templating']
+#    app.base.controller:
+#        class: AppBundle\Controller\BaseController
+#        arguments: ['@doctrine.orm.entity_manager', '@templating']
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
