@@ -1,7 +1,26 @@
 {% extends 'backend.html.twig' %}
 {% block body %}
   <h1>Adding new users</h1>
+
   {{ form_start(form) }}
-  {{ form_widget(form) }}
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.login) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.first_name) }}
+    {{ form_row(form.last_name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.karma) }}
+
+    <select name="role">
+      {% for role in form.role %}
+        <option value="{{ role.vars.value.id }}">{{ role.vars.value.name }}</option>
+      {% endfor %}
+    </select>
+
+    {{ form_row(form.add) }}
   {{ form_end(form) }}
+
 {% endblock %}

@@ -28,8 +28,16 @@ class UserController extends Controller
    */
   public function addUsersAction(Request $request)
   {
-    $user = new Users();
+    $em    = $this->getDoctrine()->getManager();
+    $user  = new Users();
+    $roles = $em->getRepository('AppBundle:Roles')->findAll();
+
     $user->setKarma(100);
+
+    foreach ($roles as $role)
+    {
+      $user->getRole()->add($role);
+    }
 
     $form = $this->createForm(UserForm::class, $user);
 
@@ -37,9 +45,10 @@ class UserController extends Controller
 
     if ($form->isSubmitted() && $form->isValid()) {
       $user->setCreatedDate(new \DateTime());
-      $user->setPassword(md5($user->getPassword()));
+      $user->setPassword(
+        $this->encodePassword($user, $user->getPassword())
+      );
 
-      $em = $this->getDoctrine()->getManager();
       $em->persist($user);
       $em->flush();
 

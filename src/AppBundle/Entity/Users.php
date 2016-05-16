@@ -403,5 +403,13 @@ class Users
     $this->email = $email;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getRole()
+  {
+    return $this->role;
+  }
+
 }
 
