@@ -16,8 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Tests\Extension\Core\Type\PasswordTypeTest;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Forms\RoleForm;
-use AppBundle\Type\RoleType;
+
 
 class UserForm extends AbstractType
 {
@@ -30,11 +29,11 @@ class UserForm extends AbstractType
             ->add('last_name', TextType::class)
             ->add('description', TextType::class)
             ->add('karma', IntegerType::class)
-            ->add('role', CollectionType::class, array(
-              'entry_type'    => RoleType::class,
-              'by_reference' => false,
-              'allow_delete' => true,
-              'allow_add' => true
+            ->add('Roles', EntityType::class, array(
+              'class'    => 'AppBundle:Roles',
+              'choice_label' => 'name',
+              'expanded' => true,
+              'multiple' => true,
             ))
             ->add('add', SubmitType::class, array('label' => 'Add'));
 
@@ -44,6 +43,7 @@ class UserForm extends AbstractType
   {
     $resolver->setDefaults(array(
       'data_class' => 'AppBundle\Entity\Users',
+      'em'         => '' ,
     ));
   }
 }

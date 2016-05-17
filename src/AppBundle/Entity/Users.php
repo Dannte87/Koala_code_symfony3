@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\UsersRoles;
 
 /**
  * Users
@@ -126,15 +127,65 @@ class Users
    */
   private $update_user_id = null;
 
+
+
   /**
-   * @ManyToMany(targetEntity="Roles", inversedBy="user")
-   * @JoinTable(name="users_roles")
-   */
+   * @ORM\OneToMany(targetEntity="UsersRoles", mappedBy="order", cascade={"all"}, orphanRemoval=true)
+   * */
+  private $usersRoles;
+
   private $role;
 
   public function __construct()
   {
     $this->role = new ArrayCollection();
+    $this->usersRoles = new ArrayCollection();
+  }
+
+  public function __toString()
+  {
+    return $this->login;
+  }
+
+  public function getRole()
+  {
+    $role = new ArrayCollection();
+
+    foreach($this->usersRoles as $ur)
+    {
+      $role[] = $ur->getRole();
+    }
+
+    return $role;
+  }
+
+  public function setRole($roles)
+  {
+    foreach($roles as $r)
+    {
+      $ur = new UsersRoles();
+
+      $ur->setUser($this);
+      $ur->setRole($r);
+
+      $this->addPo($ur);
+    }
+
+  }
+
+  public function getUser()
+  {
+    return $this;
+  }
+
+  public function addUsersRoles($userRole)
+  {
+    $this->usersRoles[] = $userRole;
+  }
+
+  public function removeUsersRoles($userRole)
+  {
+    return $this->usersRoles->removeElement($userRole);
   }
 
   /**
@@ -401,14 +452,6 @@ class Users
   public function setEmail($email)
   {
     $this->email = $email;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getRole()
-  {
-    return $this->role;
   }
 
 }
