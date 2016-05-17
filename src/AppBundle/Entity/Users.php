@@ -168,7 +168,7 @@ class Users
       $ur->setUser($this);
       $ur->setRole($r);
 
-      $this->addPo($ur);
+      $this->addUsersRoles($ur);
     }
 
   }
