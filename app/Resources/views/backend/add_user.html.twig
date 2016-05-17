@@ -1,7 +1,50 @@
 {% extends 'backend.html.twig' %}
 {% block body %}
-  <h1>Adding new users</h1>
-  {{ form_start(form) }}
-  {{ form_widget(form) }}
-  {{ form_end(form) }}
+  <div class="panel-heading">
+    <h3 class="panel-title">Add user</h3>
+  </div>
+  <div class="panel-body">
+    <div class="well">
+      {{ form_start(form) }}
+      <div class="error-count">
+        {{ form_errors(form) }}
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="login" class="col-lg-2 control-label">
+              {{ form_label(form.login) }}
+            </label>
+            <div class="col-lg-10">
+              {{ form_widget(form.login) }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="mail" class="col-lg-2 control-label">
+              {{ form_label(form.email) }}
+            </label>
+            <div class="col-lg-8">
+              {{ form_widget(form.email) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="password" class="col-lg-2 control-label">
+              {{ form_label(form.password) }}
+            </label>
+            <div class="col-lg-8">
+              {{ form_widget(form.password) }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{ form_end(form) }}
+    </div>
+  </div>
 {% endblock %}

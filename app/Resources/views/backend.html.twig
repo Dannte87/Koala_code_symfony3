@@ -3,15 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <title>Welcome to backend!</title>
-  {% block stylesheets %}{% endblock %}
+  {% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/koala_code.css') }}" rel="stylesheet" />
+  {% endblock %}
 </head>
 <body>
-<ul>
-  <li><a href="/admin">Dashboard</a></li>
-  <li><a href="/admin/users">Users</a></li>
-  <li><a href="/admin/roles">Roles</a></li>
-</ul>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+<header>
+  <div class="container">
+    <h1>KoalaCode =)</h1>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Navigation</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="/admin">Dashboard</a></li>
+              <li><a href="/admin/users">Users</a></li>
+              <li><a href="/admin/roles">Roles</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-primary __web-inspector-hide-shortcut__">
+          {% block body %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% block javascripts %}
+  <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/mail.js') }}"></script>
+{% endblock %}
 </body>
 </html>
