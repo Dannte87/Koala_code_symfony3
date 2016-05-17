@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 
@@ -31,14 +32,20 @@ class Roles
    */
   private $name;
 
+
   /**
-   * @ManyToMany(targetEntity="Users", mappedBy="role")
-   */
-  private $user;
+   * @ORM\OneToMany(targetEntity="UsersRoles", mappedBy="roles", cascade={"all"}, orphanRemoval=true)
+   * */
+  protected $usersRoles;
 
   public function __construct()
   {
     $this->user = new ArrayCollection();
+  }
+
+  public function __toString()
+  {
+    return $this->name;
   }
 
   /**
@@ -74,6 +81,5 @@ class Roles
   {
     return $this->name;
   }
-
 }
 
