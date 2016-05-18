@@ -1,3 +1,15 @@
-.add-user {
+.add-btn {
   margin: 15px;
+}
+
+#user_form_role {
+  padding: 5px 0;
+}
+
+#user_form_role label{
+  width: 96%;
+  padding-left: 10px;
+  position: relative;
+  top: -2px;
+  text-transform: uppercase;
 }

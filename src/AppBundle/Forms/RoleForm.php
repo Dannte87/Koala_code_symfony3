@@ -20,8 +20,8 @@ class RoleForm extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $builder->add('name', TextType::class)
-            ->add('add', SubmitType::class, array('label' => 'Add'));
+    $builder->add('name', TextType::class);
+//            ->add('add', SubmitType::class, array('label' => 'Add'));
   }
 
   public function configureOptions(OptionsResolver $resolver)
