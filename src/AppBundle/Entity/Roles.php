@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Roles
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping\JoinTable;
  * @ORM\Table(name="roles")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\RolesRepository")
  */
-class Roles
+class Roles implements RoleInterface
 {
   /**
    * @var int
@@ -80,6 +81,15 @@ class Roles
   public function getName()
   {
     return $this->name;
+  }
+
+  /**
+   *
+   * @return string The role.
+   */
+  public function getRole()
+  {
+    return $this->getName();
   }
 }
 
