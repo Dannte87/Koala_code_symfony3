@@ -1,21 +1,17 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
     encoders:
-        AppBundle\Entity\Users:
+        KCSecurityBundle\KCSecurityBundle\Entity\User:
             algorithm: bcrypt
-            cost: 12
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+            encode-as-base64: true
+            iterations: 10
+
     providers:
         main:
-            entity: { class: AppBundle:Users, property: email }
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+            entity: { class: BlogBundle:User, property: username }
 
+    firewalls:
         main:
             pattern: /.*
             form_login:
@@ -26,7 +22,8 @@ security:
             anonymous: true
 
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: /admin/.*, role: ROLE_ADMIN }
+        - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
             # activate different ways to authenticate
 

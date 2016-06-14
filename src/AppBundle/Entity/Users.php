@@ -129,7 +129,7 @@ class Users implements UserInterface
   private $update_user_id = null;
 
   /**
-   * @ORM\Column(type="string", length="255")
+   * @ORM\Column(type="string")
    *
    * @var string salt
    */
