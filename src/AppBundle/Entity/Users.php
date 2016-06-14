@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\UsersRoles;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
@@ -15,7 +16,7 @@ use AppBundle\Entity\UsersRoles;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
  */
-class Users
+class Users implements UserInterface
 {
   /**
    * @var int
@@ -127,7 +128,12 @@ class Users
    */
   private $update_user_id = null;
 
-
+  /**
+   * @ORM\Column(type="string")
+   *
+   * @var string salt
+   */
+  protected $salt;
 
   /**
    * @ORM\OneToMany(targetEntity="UsersRoles", mappedBy="order", cascade={"all"}, orphanRemoval=true)
@@ -170,8 +176,16 @@ class Users
 
       $this->addUsersRoles($ur);
     }
-
   }
+
+  /**
+   * @return array An array of Role objects
+   */
+  public function getRoles()
+  {
+    return $this->getRole()->toArray();
+  }
+
 
   public function getUser()
   {
@@ -454,5 +468,39 @@ class Users
     $this->email = $email;
   }
 
+  /**
+   * @return string The login.
+   */
+  public function getUsername()
+  {
+    return $this->login;
+  }
+
+  /**
+   * @return string The salt.
+   */
+  public function getSalt()
+  {
+    return $this->salt;
+  }
+
+  /**
+   * @param string $value The salt.
+   */
+  public function setSalt($value)
+  {
+    $this->salt = $value;
+  }
+
+  /**
+   * @param UserInterface $user The user
+   * @return boolean True if equal, false othwerwise.
+   */
+  public function equals(UserInterface $user)
+  {
+    return md5($this->getEmail()) == md5($user->getEmail());
+  }
+
+  public function eraseCredentials(){}
 }
 
